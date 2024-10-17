@@ -72,7 +72,8 @@ public class HelloController implements Initializable {
 
     public void removeFromCategory(ActionEvent actionEvent) {
 
-        String categoryName = categorySubmission_Lbl.getText();
+        // String categoryName = categorySubmission_Lbl.getText();
+        String categoryName = categoryList_LV.getSelectionModel().getSelectedItem();
 
         for (int i = 0; i < categorylist.size(); i++) {
             if (categoryName.equals(categorylist.get(i))) {
