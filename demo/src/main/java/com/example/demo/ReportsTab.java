@@ -33,8 +33,8 @@ public class ReportsTab {
 
 
             report.addItem("Item 1", 100.00, SettingsConfig.getInstance().getSellerCommission(), 5.00);
-            report.addItem("Item 2", 200.00, 14.00,  10.00);
-            report.addItem("Item 3", 150.00, 20.00, 7.50);
+            report.addItem("Item 2", 200.00, SettingsConfig.getInstance().getSellerCommission(),  10.00);
+            report.addItem("Item 3", 150.00, SettingsConfig.getInstance().getSellerCommission(), 7.50);
             String reportText = report.generateReport();
             reportArea.setText(reportText);
         });
