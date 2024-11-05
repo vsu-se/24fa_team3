@@ -36,8 +36,6 @@ public class HelloApplication extends Application {
             // Create and add reports tab
             ReportsTab reportsTab = new ReportsTab();
 
-            tabPane.getTabs().addAll(initialTab, auctionsTab.getAuctionsTab(), reportsTab.getReportsTab());
-
             // Create and add settings tab
             Tab settingsTab = new Tab("Settings");
             settingsTab.setContent(settingsTabRoot);
