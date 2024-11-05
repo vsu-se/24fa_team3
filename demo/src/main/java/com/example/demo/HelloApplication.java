@@ -8,8 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -18,7 +21,8 @@ public class HelloApplication extends Application {
         try {
             // Load the main view
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-            FXMLLoader fxmlLoaderSettingTabs = new FXMLLoader(SystemController.class.getResource("settingsTab-view.fxml"));
+            FXMLLoader fxmlLoaderSettingTabs = new FXMLLoader(
+                    SystemController.class.getResource("settingsTab-view.fxml"));
 
             Parent settingsTabRoot = fxmlLoaderSettingTabs.load();
             Parent root = fxmlLoader.load();
@@ -40,17 +44,21 @@ public class HelloApplication extends Application {
             Tab settingsTab = new Tab("Settings");
             settingsTab.setContent(settingsTabRoot);
 
-
             // Create auctions tab
             AuctionsTab auctionsTab = new AuctionsTab();
 
             // Add all the tabs
-            tabPane.getTabs().addAll(initialTab, auctionsTab.getAuctionsTab() ,reportsTab.getReportsTab(), settingsTab);
+            tabPane.getTabs().addAll(initialTab, auctionsTab.getAuctionsTab(), reportsTab.getReportsTab(), settingsTab);
             tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
             // Set up scene and stage
             Scene scene = new Scene(tabPane, 500, 500);
             stage.setTitle("Welcome to GAI");
+
+            File file = new File("C:/Users/easto/Downloads/gai_logo.png");
+            Image icon = new Image(new FileInputStream(file));
+            stage.getIcons().add(icon);
+
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
