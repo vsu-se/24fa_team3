@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,14 +33,20 @@ public class HelloApplication extends Application {
             Tab initialTab = new Tab("Home");
             initialTab.setContent(root);
 
-            // Create and add reports tab
+            // Create reports tab
             ReportsTab reportsTab = new ReportsTab();
 
             // Create and add settings tab
             Tab settingsTab = new Tab("Settings");
             settingsTab.setContent(settingsTabRoot);
 
-            tabPane.getTabs().addAll(initialTab, reportsTab.getReportsTab(), settingsTab);
+
+            // Create auctions tab
+            AuctionsTab auctionsTab = new AuctionsTab();
+
+            // Add all the tabs
+            tabPane.getTabs().addAll(initialTab, auctionsTab.getAuctionsTab() ,reportsTab.getReportsTab(), settingsTab);
+            tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
             // Set up scene and stage
             Scene scene = new Scene(tabPane, 500, 500);
