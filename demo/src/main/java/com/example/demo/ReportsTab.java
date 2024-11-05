@@ -23,9 +23,18 @@ public class ReportsTab {
         generateReportButton.setOnAction(event -> {
             // Generate the seller's report
             SellersReportController report = new SellersReportController();
-            report.addItem("Item 1", 100.00, 10.00, 5.00);
-            report.addItem("Item 2", 200.00, 20.00, 10.00);
-            report.addItem("Item 3", 150.00, 15.00, 7.50);
+            //SellerCommissionController sellerCommission = new SellerCommissionController();
+            //double value = sellerCommission.item.getSellerCommission();
+
+
+            //Item item = new Item("Item 0", 00.00, 0.00, 0.00);
+
+            //SellerCommissionController sellerCommission =;
+
+
+            report.addItem("Item 1", 100.00, SettingsConfig.getInstance().getSellerCommission(), 5.00);
+            report.addItem("Item 2", 200.00, 14.00,  10.00);
+            report.addItem("Item 3", 150.00, 20.00, 7.50);
             String reportText = report.generateReport();
             reportArea.setText(reportText);
         });

@@ -16,6 +16,7 @@ class Item {
         this.shippingCost = shippingCost;
     }
 
+
     public String getName() {
         return name;
     }
@@ -24,14 +25,21 @@ class Item {
         return price;
     }
 
+    public double getShippingCost() {
+        return shippingCost;
+    }
+
+    public void setSellerCommission(double value) {
+        this.sellerCommission = value;
+    }
+
     public double getSellerCommission() {
         return sellerCommission;
     }
 
-    public double getShippingCost() {
-        return shippingCost;
-    }
 }
+
+
 
 public class SellersReportController {
     private List<Item> items = new ArrayList<>();
@@ -71,7 +79,9 @@ public class SellersReportController {
     // main used for testing in terminal
     public static void main(String[] args) {
         SellersReportController report = new SellersReportController();
-        report.addItem("Item 1", 100.00, 10.00, 5.00);
+
+
+        report.addItem("Item 1", 100.00, 24.00, 5.00);
         report.addItem("Item 2", 200.00, 20.00, 10.00);
         report.addItem("Item 3", 150.00, 15.00, 7.50);
 

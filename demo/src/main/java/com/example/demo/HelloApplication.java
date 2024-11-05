@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
@@ -16,10 +17,16 @@ public class HelloApplication extends Application {
         try {
             // Load the main view
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            FXMLLoader fxmlLoaderSettingTabs = new FXMLLoader(SystemController.class.getResource("settingsTab-view.fxml"));
+
+            Parent settingsTabRoot = fxmlLoaderSettingTabs.load();
             Parent root = fxmlLoader.load();
 
             // Create TabPane
             TabPane tabPane = new TabPane();
+
+            // Disables Tabs from being able to be deleted
+            tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
             // Create initial tab
             Tab initialTab = new Tab("Home");
@@ -27,11 +34,16 @@ public class HelloApplication extends Application {
 
             // Create and add reports tab
             ReportsTab reportsTab = new ReportsTab();
-            tabPane.getTabs().addAll(initialTab, reportsTab.getReportsTab());
+
+            // Create and add settings tab
+            Tab settingsTab = new Tab("Settings");
+            settingsTab.setContent(settingsTabRoot);
+
+            tabPane.getTabs().addAll(initialTab, reportsTab.getReportsTab(), settingsTab);
 
             // Set up scene and stage
-            Scene scene = new Scene(tabPane, 320, 240);
-            stage.setTitle("Hello!");
+            Scene scene = new Scene(tabPane, 500, 500);
+            stage.setTitle("Welcome to GAI");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

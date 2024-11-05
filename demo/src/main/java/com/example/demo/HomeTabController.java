@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,11 +12,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class HomeTabController implements Initializable {
 
     @FXML
     public Button removeCategory_Btn;
@@ -23,6 +26,8 @@ public class HelloController implements Initializable {
     public TextField categorySubmission_Lbl;
     public ListView<String> categoryList_LV;
     public Label categoryCheck_Lbl;
+    public Label time;
+    private volatile boolean stop = false;
 
 
     List<String> categorylist = new ArrayList<>();
@@ -31,6 +36,7 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        timeClock();
         categorylist = new ArrayList<>();
         observableList = FXCollections.observableArrayList(categorylist);
         categoryList_LV.setItems(observableList);
@@ -65,9 +71,6 @@ public class HelloController implements Initializable {
             }
 
         }
-
-
-
     }
 
     public void removeFromCategory(ActionEvent actionEvent) {
@@ -82,5 +85,25 @@ public class HelloController implements Initializable {
             }
         }
         categorySubmission_Lbl.clear();
+    }
+
+    private void timeClock () {
+        Thread thread = new Thread(() -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
+            while (!stop) {
+                try {
+                    Thread.sleep(1000);
+                } catch(Exception e) {
+                    System.out.println(e);
+                }
+                final String timenow = sdf.format(new Date());
+                Platform.runLater(()->{
+                    time.setText(timenow);
+                });
+            }
+
+        });
+
+        thread.start();
     }
 }
