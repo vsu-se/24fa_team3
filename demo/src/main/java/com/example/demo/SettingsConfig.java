@@ -1,31 +1,49 @@
 package com.example.demo;
 
-public class SettingsConfig {
+import java.io.*;
+
+public class SettingsConfig implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private static SettingsConfig instance = new SettingsConfig();
+    private double sellerCommission;
+    private double buyerPremium;
 
-    private SettingsConfig() {}
+    private SettingsConfig() {
+        // Initialize default values if necessary
+    }
 
     public static SettingsConfig getInstance() {
         return instance;
     }
 
-    private double sellerCommission = 0;
-    private double buyerPremium = 0;
+    public void setSellerCommission(double sellerCommission) {
+        this.sellerCommission = sellerCommission;
+        SellersReport.getInstance().updateSellerCommission(sellerCommission);
+    }
 
     public double getSellerCommission() {
         return sellerCommission;
     }
 
-    public void setSellerCommission(double commission) {
-        this.sellerCommission = commission;
+    public void setBuyerPremium(double buyerPremium) {
+        this.buyerPremium = buyerPremium;
+        BuyersReport.getInstance().updateBuyerPremium(buyerPremium);
     }
 
     public double getBuyerPremium() {
         return buyerPremium;
     }
 
-    public void setBuyerPremium(double buyerPremium) {
-        this.buyerPremium = buyerPremium;
+    public void saveToFile(String filePath) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(instance);
+        }
+    }
+
+    public static void loadFromFile(String filePath) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            instance = (SettingsConfig) ois.readObject();
+        }
     }
 }
