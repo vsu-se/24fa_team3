@@ -5,6 +5,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.geometry.Insets;
 
 
 public class AuctionsTab {
@@ -24,7 +25,10 @@ public class AuctionsTab {
         viewActiveAuctions = new Button("View Active Auctions");
         viewEndedAuctions = new Button("View Ended Auctions");
         
-        VBox auctionsContent = new VBox(viewUserAuctions, viewActiveAuctions, viewEndedAuctions, auctionsListView);
+        HBox buttonBox = new HBox(10, viewUserAuctions, viewActiveAuctions, viewEndedAuctions, auctionsListView);
+        buttonBox.setPadding(new Insets(10, 10, 10, 10));
+
+        VBox auctionsContent = new VBox(buttonBox, auctionsListView);
         auctionsTab.setContent(auctionsContent);
 
         // Event handler for viewing user-created auctions
@@ -32,7 +36,7 @@ public class AuctionsTab {
             auctionsListView.getItems().clear();  // Clear the list
 
             // Sample data for user auctions
-            ActiveAuction auction1 = new ActiveAuction("MacBook Pro", "3 Hours", 349.68);
+            ActiveAuction auction1 = new ActiveAuction("MacBook Pro", "3 Hours", 349.68, true);
             EndedAuction auction2 = new EndedAuction("Handmade Quilt", "--------", 150.00);
 
             // Add each auction's display (HBox) to the ListView
@@ -47,8 +51,8 @@ public class AuctionsTab {
             auctionsListView.getItems().clear();  // Clear the list
 
             // Sample data for active auctions
-            ActiveAuction auction1 = new ActiveAuction("Modern Art Sculpture", "02:37:28 (HH:MM:SS)", 200.00);
-            ActiveAuction auction2 = new ActiveAuction("Rare Book", "37 Minutes", 60.00);
+            ActiveAuction auction1 = new ActiveAuction("Modern Art Sculpture", "02:37:28 (HH:MM:SS)", 200.00, false);
+            ActiveAuction auction2 = new ActiveAuction("Rare Book", "37 Minutes", 60.00, false);
 
             // Add each auction's display (HBox) to the ListView
             auctionsListView.getItems().addAll(

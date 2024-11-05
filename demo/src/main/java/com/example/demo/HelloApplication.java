@@ -25,9 +25,13 @@ public class HelloApplication extends Application {
             Tab initialTab = new Tab("Home");
             initialTab.setContent(root);
 
+            // Create auctions tab
+            AuctionsTab auctionsTab = new AuctionsTab();
+
             // Create and add reports tab
             ReportsTab reportsTab = new ReportsTab();
-            tabPane.getTabs().addAll(initialTab, reportsTab.getReportsTab());
+
+            tabPane.getTabs().addAll(initialTab, auctionsTab.getAuctionsTab(), reportsTab.getReportsTab());
 
             // Set up scene and stage
             Scene scene = new Scene(tabPane, 320, 240);
