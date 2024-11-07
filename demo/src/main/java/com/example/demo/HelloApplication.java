@@ -37,7 +37,7 @@ public class HelloApplication extends Application {
             Tab initialTab = new Tab("Home");
             initialTab.setContent(root);
 
-            // Create reports tab
+            // Create and add reports tab
             ReportsTab reportsTab = new ReportsTab();
 
             // Create and add settings tab

@@ -25,21 +25,18 @@ public class SystemController {
     @FXML
     private void sellerCommission(ActionEvent actionEvent) {
         try {
-
             sellerCommissionErrorLbl.setVisible(false);
             String check = SellerCommissionTxtF.getText();
             double value = 0;
             if (!check.isEmpty() && check.matches("[0-9]+(\\.[0-9]+)?")) {
-                 value = Double.parseDouble(SellerCommissionTxtF.getText());
+                value = Double.parseDouble(SellerCommissionTxtF.getText());
                 if (value > -1) {
                     SettingsConfig.getInstance().setSellerCommission(value);
                 }
-            }
-            else {
+            } else {
                 sellerCommissionErrorLbl.setVisible(true);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -55,23 +52,11 @@ public class SystemController {
                 if (value > -1) {
                     SettingsConfig.getInstance().setBuyerPremium(value);
                 }
-            }
-            else {
+            } else {
                 BuyerPremiumErrorLbl.setVisible(true);
             }
-
-            double result = SettingsConfig.getInstance().getBuyerPremium();
-            System.out.println("Result" + result);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
-
-
     }
-
-
-
-
-
 }
