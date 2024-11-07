@@ -55,7 +55,7 @@ public class HelloApplication extends Application {
             Scene scene = new Scene(tabPane, 500, 500);
             stage.setTitle("Welcome to GAI");
 
-            File file = new File("C:/Users/easto/Downloads/gai_logo.png");
+            File file = new File("gai_logo.png");
             Image icon = new Image(new FileInputStream(file));
             stage.getIcons().add(icon);
 
