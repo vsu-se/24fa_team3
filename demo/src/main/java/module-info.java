@@ -1,8 +1,13 @@
 module com.example.demo {
     requires javafx.controls;
     requires javafx.fxml;
+    exports com.example.demo.controllers;
+    exports com.example.demo.models;
+    exports com.example.demo.utils;
+    exports com.example.demo.views;
 
-
-    opens com.example.demo to javafx.fxml;
-    exports com.example.demo;
+    opens com.example.demo.controllers to javafx.fxml;
+    opens com.example.demo.models to javafx.fxml;
+    opens com.example.demo.utils to javafx.fxml;
+    opens com.example.demo.views to javafx.fxml;
 }
