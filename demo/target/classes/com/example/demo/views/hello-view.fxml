@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controllers.HomeTabController">
+   <children>
+      <TextField fx:id="categorySubmission_Lbl" layoutX="14.0" layoutY="152.0" promptText="Add/Remove Category" />
+      <ListView fx:id="categoryList_LV" layoutX="14.0" layoutY="186.0" prefHeight="200.0" prefWidth="200.0" />
+      <HBox layoutX="14.0" layoutY="116.0" prefHeight="26.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="addCategory_Btn" mnemonicParsing="false" onAction="#addToCategory" text="Add Category" />
+            <Button fx:id="removeCategory_Btn" mnemonicParsing="false" onAction="#removeFromCategory" text="Remove Category" />
+         </children>
+      </HBox>
+      <Label fx:id="categoryCheck_Lbl" layoutX="236.0" layoutY="200.0" />
+      <Label fx:id="time" layoutX="356.0" layoutY="144.0" text="Label" />
+   </children>
+</AnchorPane>
