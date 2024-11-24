@@ -15,7 +15,6 @@ public class HomeTab extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Load the main view
             FXMLLoader fxmlLoader = new FXMLLoader(HomeTab.class.getResource("hello-view.fxml"));
             FXMLLoader fxmlLoaderSettingTabs = new FXMLLoader(SettingsTab.class.getResource("settingsTab-view.fxml"));
 
@@ -48,7 +47,7 @@ public class HomeTab extends Application {
             tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
             // Set up scene and stage
-            Scene scene = new Scene(tabPane, 500, 500);
+            Scene scene = new Scene(tabPane, 600, 600);
             stage.setTitle("Welcome to GAI");
             stage.setScene(scene);
             stage.show();

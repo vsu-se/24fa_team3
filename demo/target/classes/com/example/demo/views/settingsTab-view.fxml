@@ -13,5 +13,9 @@
       <Button fx:id="BuyerPremiumBtn" layoutX="170.0" layoutY="187.0" mnemonicParsing="false" onAction="#buyerPremium" text="Submit" />
       <Label fx:id="sellerCommissionErrorLbl" layoutX="272.0" layoutY="101.0" text="Please enter a positive number" textFill="#ec0909" visible="false" />
       <Label fx:id="BuyerPremiumErrorLbl" layoutX="258.0" layoutY="191.0" text="Please enter a positive number" textFill="#fa0000" visible="false" />
+      <Label layoutX="297.0" layoutY="63.0" text="Set Date/Time Below:" />
+      <TextField layoutX="296.0" layoutY="98.0" />
+      <Button fx:id="DateAndTimeBtn" layoutX="463.0" layoutY="98.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="ResumeRealTimeBtn" layoutX="300.0" layoutY="187.0" mnemonicParsing="false" text="Click here to resume real time" />
    </children>
 </AnchorPane>

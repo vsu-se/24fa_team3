@@ -1,15 +1,15 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Category;
+import com.example.demo.models.Item;
+import com.example.demo.views.AuctionsTab;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -29,32 +29,46 @@ public class HomeTabController implements Initializable {
     public Label time;
     private volatile boolean stop = false;
 
+    public Button ListItem_Btn;
+    public TextField ItemName_TxtField;
+    public TextField ItemPrice_TxtField;
+    public TextField ItemShippingCost_TxtField;
+    public TextField ItemEndDate_TxtField;
+    public ComboBox<String> categoryPicker_ComboBox;
 
-    List<String> categorylist = new ArrayList<>();
 
-    private ObservableList<String> observableList;
+    public ArrayList<Category> categorise = new ArrayList<>();
+    public ObservableList<String> categoryStrings;
+
+    private static HomeTabController instance = new HomeTabController();
+
+    public static HomeTabController getInstance() {
+        return instance;
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeClock();
-        categorylist = new ArrayList<>();
-        observableList = FXCollections.observableArrayList(categorylist);
-        categoryList_LV.setItems(observableList);
+
+        categoryStrings = FXCollections.observableArrayList();
+        categoryList_LV.setItems(categoryStrings);
+        categoryPicker_ComboBox.setItems(categoryStrings);
     }
 
     public void addToCategory(ActionEvent actionEvent) {
+
         String categoryName = categorySubmission_Lbl.getText();
 
-
-        if (categorylist.isEmpty()) {
-            categorylist.add(categoryName);
-            observableList.add(categoryName);
-            categorySubmission_Lbl.clear();
+        if (categorise.isEmpty()) {
+            Category newCategory = new Category(categoryName);
+            categorise.add(newCategory);
+            categoryStrings.add(categoryName);
         }
         else {
             boolean exists = false;
-            for (String s : categorylist) {
-                if (s.equals(categoryName)) {
+            for (Category s : categorise) {
+                if (s.getName().equals(categoryName)) {
                     exists = true;
                     break;
                 }
@@ -65,26 +79,35 @@ public class HomeTabController implements Initializable {
                 categorySubmission_Lbl.clear();
             }
             else {
-                categorylist.add(categoryName);
-                observableList.add(categoryName);
+                Category newCategory = new Category(categoryName);
+                categorise.add(newCategory);
+                categoryStrings.add(categoryName);
                 categorySubmission_Lbl.clear();
             }
 
         }
+
+
     }
+
 
     public void removeFromCategory(ActionEvent actionEvent) {
 
-        // String categoryName = categorySubmission_Lbl.getText();
         String categoryName = categoryList_LV.getSelectionModel().getSelectedItem();
 
-        for (int i = 0; i < categorylist.size(); i++) {
-            if (categoryName.equals(categorylist.get(i))) {
-                categorylist.remove(categoryName);
-                observableList.remove(categoryName);
+        for (int i = 0; i < categorise.size(); i++) {
+            if (categoryName.equals(categorise.get(i).getName())) {
+                categorise.remove(i);
+                categoryStrings.remove(categoryName);
             }
         }
         categorySubmission_Lbl.clear();
+
+    }
+
+
+    public ArrayList<Category> getCategoryList() {
+        return categorise;
     }
 
     private void timeClock () {
@@ -106,4 +129,22 @@ public class HomeTabController implements Initializable {
 
         thread.start();
     }
-}
+
+
+    public void listItem(ActionEvent actionEvent) {
+
+
+            String itemName = ItemName_TxtField.getText();
+            double itemPrice = Double.parseDouble(ItemPrice_TxtField.getText());
+            double itemShippingCost = Double.parseDouble((ItemShippingCost_TxtField.getText()));
+            String category = categoryPicker_ComboBox.getSelectionModel().getSelectedItem();
+            Item item = new Item(itemName, itemPrice, SettingsConfig.getInstance().getSellerCommission(), itemShippingCost);
+
+            for (Category categories : categorise) {
+                if (category.equals(categories.getName())) {
+                    categories.addItem(item);
+                }
+            }
+        }
+
+    }

@@ -49,4 +49,13 @@ public class SettingsConfig implements Serializable {
             instance = (SettingsConfig) ois.readObject();
         }
     }
+
+
+
+
+
+
+
+
+
 }

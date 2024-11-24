@@ -28,6 +28,8 @@ public class AuctionTabController {
     public HBox createActiveAuctionDisplay(Auction a) {
         HBox auctionDisplay = new HBox(10);
 
+
+
         Text itemText = new Text(a.getItemName());
         Text timeLimit = new Text("\nTime until auction is over: " + a.getTimer());
         Text bidText = new Text(String.format("Highest Bid is $%.2f ", a.getCurrentBid()));
