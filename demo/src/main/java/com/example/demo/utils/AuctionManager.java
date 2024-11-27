@@ -6,7 +6,9 @@ import com.example.demo.models.Auction;
 import com.example.demo.models.Bid;
 import com.example.demo.models.Category;
 import com.example.demo.models.Item;
+import com.example.demo.views.AuctionsTab;
 import com.example.demo.views.HomeTab;
+import javafx.scene.control.SingleSelectionModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,30 +18,34 @@ public class AuctionManager {
 
     private static AuctionManager instance = new AuctionManager();
 
+
     private AuctionManager() {
     }
+
 
     public static AuctionManager getInstance() {
         return instance;
     }
 
+
     public List<Auction> getUserAuctions() {
         // mock list
         List<Auction> userAuctions = new ArrayList<>();
 
-       // List<Category> categories = HomeTabController.getInstance().categorylist;
-       // ArrayList<Item> items = new ArrayList<>();
-        //for (Category category : categories) {
-        //    List<Item> categoryItems = category.getNewItem();
-        //    items.addAll(categoryItems);
-       // }
+        ArrayList<Category> lists = HomeTabController.getInstance().getCategoryList();
+        ArrayList<Item> items = new ArrayList<>();
 
-       // for (Item item : items) {
-          //  userAuctions.add(new Auction(item.getName(), new Date(), true, false, new Bid(100)));
-        //}
+        for (Category category : lists) {
+            List<Item> categoryItems = category.getNewItem();
+            items.addAll(categoryItems);
+        }
+
+        for (Item item : items) {
+            userAuctions.add(new Auction(item.getName(), new Date(), true, false, new Bid(100)));
+        }
 
 
-        userAuctions.add(new Auction("User Auction 1", new Date(), true, false, new Bid(100)));
+        //userAuctions.add(new Auction("User Auction 1", new Date(), true, false, new Bid(100)));
        // userAuctions.add(new Auction("User Auction 2", new Date(), true, false, new Bid(200)));
         return userAuctions;
     }

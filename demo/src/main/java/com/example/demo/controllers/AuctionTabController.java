@@ -1,20 +1,24 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Auction;
+import com.example.demo.models.Category;
 import com.example.demo.views.AuctionsTab;
 
+import javafx.collections.FXCollections;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
 public class AuctionTabController {
 
     private static AuctionTabController instance = new AuctionTabController();
     private AuctionsTab auctionTab;
 
-    private AuctionTabController() {
+    public AuctionTabController() {
     }
 
     public static AuctionTabController getInstance() {
@@ -27,8 +31,6 @@ public class AuctionTabController {
 
     public HBox createActiveAuctionDisplay(Auction a) {
         HBox auctionDisplay = new HBox(10);
-
-
 
         Text itemText = new Text(a.getItemName());
         Text timeLimit = new Text("\nTime until auction is over: " + a.getTimer());
@@ -73,4 +75,6 @@ public class AuctionTabController {
 
         return auctionDisplay;
     }
+
+
 }

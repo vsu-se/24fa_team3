@@ -1,5 +1,6 @@
 package com.example.demo.views;
 
+import com.example.demo.controllers.HomeTabController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomeTab extends Application {
+    //public int xcontrollerr;
+    //private AuctionsTab auctionInstance = new AuctionsTab();
+    //private static HomeTabController instanceHomeTabController = new HomeTabController();
+
     @Override
     public void start(Stage stage) {
         try {
@@ -31,13 +36,15 @@ public class HomeTab extends Application {
             Tab initialTab = new Tab("Home");
             initialTab.setContent(root);
 
+            AuctionsTab auctionInstance = new AuctionsTab();
+            HomeTabController instanceHomeTabController = new HomeTabController();
+
             // Create and add reports tab
             ReportsTab reportsTab = new ReportsTab();
 
             // Create and add settings tab
             Tab settingsTab = new Tab("Settings");
             settingsTab.setContent(settingsTabRoot);
-
 
             // Create auctions tab
             AuctionsTab auctionsTab = new AuctionsTab();

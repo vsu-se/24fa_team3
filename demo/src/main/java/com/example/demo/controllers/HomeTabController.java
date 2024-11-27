@@ -37,10 +37,12 @@ public class HomeTabController implements Initializable {
     public ComboBox<String> categoryPicker_ComboBox;
 
 
-    public ArrayList<Category> categorise = new ArrayList<>();
+    public static ArrayList<Category> categorise = new ArrayList<>();
     public ObservableList<String> categoryStrings;
 
     private static HomeTabController instance = new HomeTabController();
+    //private AuctionTabController atc = new AuctionTabController();
+
 
     public static HomeTabController getInstance() {
         return instance;
@@ -132,8 +134,6 @@ public class HomeTabController implements Initializable {
 
 
     public void listItem(ActionEvent actionEvent) {
-
-
             String itemName = ItemName_TxtField.getText();
             double itemPrice = Double.parseDouble(ItemPrice_TxtField.getText());
             double itemShippingCost = Double.parseDouble((ItemShippingCost_TxtField.getText()));
