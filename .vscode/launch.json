@@ -6,9 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "SellersReportController",
+            "name": "HomeTab",
             "request": "launch",
-            "mainClass": "com.example.demo/com.example.demo.SellersReportController",
+            "mainClass": "com.example.demo/com.example.demo.views.HomeTab",
             "projectName": "Prototype_1"
         },
         {
@@ -19,9 +19,9 @@
         },
         {
             "type": "java",
-            "name": "HelloApplication",
+            "name": "HomeTab",
             "request": "launch",
-            "mainClass": "com.example.demo/com.example.demo.HelloApplication",
+            "mainClass": "com.example.demo/com.example.demo.HomeTab",
             "projectName": "Prototype_1"
         }
     ]
