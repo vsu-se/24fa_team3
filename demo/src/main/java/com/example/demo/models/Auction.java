@@ -1,8 +1,5 @@
 package com.example.demo.models;
 
-import com.example.demo.controllers.AuctionTabController;
-import com.example.demo.views.AuctionsTab;
-
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +11,7 @@ public class Auction {
     private Bid startingBid;
     private List<Bid> bidHistory;
     private boolean isOwnedByUser;
+    @SuppressWarnings("unused")
     private boolean ended;
 
     public Auction(String itemName, Date timer, boolean isOwnedByUser, boolean ended, Bid startingBid) {

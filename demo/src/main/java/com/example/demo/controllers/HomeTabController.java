@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Category;
 import com.example.demo.models.Item;
-import com.example.demo.views.AuctionsTab;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +14,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomeTabController implements Initializable {

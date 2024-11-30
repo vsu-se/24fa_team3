@@ -1,15 +1,10 @@
 package com.example.demo.utils;
 
-import com.example.demo.controllers.AuctionTabController;
 import com.example.demo.controllers.HomeTabController;
 import com.example.demo.models.Auction;
 import com.example.demo.models.Bid;
 import com.example.demo.models.Category;
 import com.example.demo.models.Item;
-import com.example.demo.views.AuctionsTab;
-import com.example.demo.views.HomeTab;
-import javafx.scene.control.SingleSelectionModel;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

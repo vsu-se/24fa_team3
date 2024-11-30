@@ -1,17 +1,13 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Auction;
-import com.example.demo.models.Category;
 import com.example.demo.views.AuctionsTab;
 
-import javafx.collections.FXCollections;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
-
-import java.util.List;
 
 public class AuctionTabController {
 

@@ -36,7 +36,9 @@ public class HomeTab extends Application {
             Tab initialTab = new Tab("Home");
             initialTab.setContent(root);
 
+            @SuppressWarnings("unused")
             AuctionsTab auctionInstance = new AuctionsTab();
+            @SuppressWarnings("unused")
             HomeTabController instanceHomeTabController = new HomeTabController();
 
             // Create and add reports tab

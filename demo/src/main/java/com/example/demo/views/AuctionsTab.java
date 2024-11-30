@@ -97,6 +97,9 @@ public class AuctionsTab {
     public void selectCategory() {
         String selected = viewCategoryOptions.getValue();
 
+        if (selected == null) {
+            return;
+        }
 
         ArrayList<Category> categories = HomeTabController.getInstance().getCategoryList();
         ArrayList<Item> filteredItems = new ArrayList<>();
