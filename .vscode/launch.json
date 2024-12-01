@@ -8,6 +8,20 @@
             "type": "java",
             "name": "HomeTab",
             "request": "launch",
+            "mainClass": "com.example.demo.views.HomeTab",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "HomeTab",
+            "request": "launch",
             "mainClass": "com.example.demo/com.example.demo.views.HomeTab",
             "projectName": "Prototype_1"
         },
@@ -23,6 +37,13 @@
             "request": "launch",
             "mainClass": "com.example.demo/com.example.demo.HomeTab",
             "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "Launch JavaFX",
+            "request": "launch",
+            "mainClass": "com.example.demo.HomeTab",
+            "vmArgs": "--module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }

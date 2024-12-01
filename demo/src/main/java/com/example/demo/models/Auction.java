@@ -1,8 +1,5 @@
 package com.example.demo.models;
 
-import com.example.demo.controllers.AuctionTabController;
-import com.example.demo.views.AuctionsTab;
-
 import java.util.Date;
 import java.util.List;
 
@@ -13,15 +10,17 @@ public class Auction {
     private Bid currentBid;
     private Bid startingBid;
     private List<Bid> bidHistory;
+    private Category category;
     private boolean isOwnedByUser;
     private boolean ended;
 
-    public Auction(String itemName, Date timer, boolean isOwnedByUser, boolean ended, Bid startingBid) {
+    public Auction(String itemName, Date timer, boolean isOwnedByUser, boolean ended, Bid startingBid, Category category) {
         this.itemName = itemName;
         this.timer = timer;
         this.isOwnedByUser = isOwnedByUser;
         this.ended = ended;
         this.startingBid = startingBid;
+        this.category = category;
     }
 
     public String getItemName() {
@@ -42,6 +41,14 @@ public class Auction {
 
     public boolean isOwnedByUser() {
         return isOwnedByUser;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public boolean isEnded() {
+        return ended;
     }
 
     public void setEndDate(Date endDate) {
@@ -71,6 +78,19 @@ public class Auction {
     public Date getEndDate() {
         return endDate;
     } 
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true; 
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false; 
+        }
+
+        Auction auction = (Auction) obj;
+        return itemName.equals(auction.itemName) && timer.equals(auction.timer); 
+    }
 
     public String generateBidHistoryReport() {
         StringBuilder report = new StringBuilder();

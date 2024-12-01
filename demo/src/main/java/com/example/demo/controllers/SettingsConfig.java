@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.io.*;
+import java.time.LocalDateTime;
 
 import com.example.demo.models.BuyersReport;
 import com.example.demo.models.SellersReport;
@@ -11,9 +12,14 @@ public class SettingsConfig implements Serializable {
     private static SettingsConfig instance = new SettingsConfig();
     private double sellerCommission;
     private double buyerPremium;
+    private LocalDateTime currentTime;
 
     private SettingsConfig() {
         // Initialize default values if necessary
+    }
+
+    public LocalDateTime getCurrentTime() {
+        return currentTime;
     }
 
     public static SettingsConfig getInstance() {
