@@ -38,6 +38,7 @@ public class HomeTabController implements Initializable {
 
 
     public static ArrayList<Category> categorise = new ArrayList<>();
+
     public ObservableList<String> categoryStrings;
 
     private static HomeTabController instance = new HomeTabController();
@@ -52,10 +53,14 @@ public class HomeTabController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeClock();
-
+        categorise.add(new Category("Electronics"));
         categoryStrings = FXCollections.observableArrayList();
+        for (Category category : categorise) {
+            categoryStrings.add(category.getName());
+        }
         categoryList_LV.setItems(categoryStrings);
         categoryPicker_ComboBox.setItems(categoryStrings);
+
     }
 
     public void addToCategory(ActionEvent actionEvent) {

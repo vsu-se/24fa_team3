@@ -2,14 +2,18 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Auction;
 import com.example.demo.models.Category;
+import com.example.demo.utils.AuctionManager;
 import com.example.demo.views.AuctionsTab;
 
 import javafx.collections.FXCollections;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -46,6 +50,29 @@ public class AuctionTabController {
             MenuItem endAuctionItem = new MenuItem("End Auction");
 
             deleteItem.setOnAction(event -> {
+                AuctionsTab.getInstance().updateCategoryList();
+                //a.deleteAuction();
+               // auctionTab.getAuctionsListView().getItems().remove(auctionDisplay);
+                AuctionManager.getInstance().removeAuction(a);
+                auctionTab.getAuctionsListView().getItems().remove(auctionDisplay);
+
+            });
+
+            endAuctionItem.setOnAction(event -> {
+                a.endAuction();
+                auctionTab.getAuctionsListView().getItems().remove(auctionDisplay);
+            });
+
+            userActions.getItems().addAll(deleteItem, endAuctionItem);
+            auctionDisplay.getChildren().add(userActions);
+        }
+        else {
+            MenuButton userActions = new MenuButton("Actions");
+            MenuItem deleteItem = new MenuItem("Delete Auction");
+            MenuItem endAuctionItem = new MenuItem("End Auction");
+            MenuItem bidOnAuctionItem = new MenuItem("Place Bid");
+
+            deleteItem.setOnAction(event -> {
                 a.deleteAuction();
                 auctionTab.getAuctionsListView().getItems().remove(auctionDisplay);
             });
@@ -55,7 +82,19 @@ public class AuctionTabController {
                 auctionTab.getAuctionsListView().getItems().remove(auctionDisplay);
             });
 
-            userActions.getItems().addAll(deleteItem, endAuctionItem);
+            bidOnAuctionItem.setOnAction(actionEvent -> {
+                Stage newWindow = new Stage();
+
+                StackPane secondaryRoot = new StackPane();
+                //secondaryRoot.getChildren().add();
+                Scene newWindowScene = new Scene(secondaryRoot, 200, 150);
+
+                newWindow.setScene(newWindowScene);
+                newWindow.show();
+
+            });
+
+            userActions.getItems().addAll(deleteItem, endAuctionItem, bidOnAuctionItem);
             auctionDisplay.getChildren().add(userActions);
         }
 

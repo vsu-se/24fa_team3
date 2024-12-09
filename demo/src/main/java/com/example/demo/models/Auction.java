@@ -11,17 +11,19 @@ public class Auction {
     private Date timer;
     private Date endDate;
     private Bid currentBid;
+    private Category category;
     private Bid startingBid;
     private List<Bid> bidHistory;
     private boolean isOwnedByUser;
     private boolean ended;
 
-    public Auction(String itemName, Date timer, boolean isOwnedByUser, boolean ended, Bid startingBid) {
+    public Auction(String itemName, Date timer, boolean isOwnedByUser, boolean ended, Bid startingBid, Category category) {
         this.itemName = itemName;
         this.timer = timer;
         this.isOwnedByUser = isOwnedByUser;
         this.ended = ended;
         this.startingBid = startingBid;
+        this.category = category;
     }
 
     public String getItemName() {
@@ -42,6 +44,14 @@ public class Auction {
 
     public boolean isOwnedByUser() {
         return isOwnedByUser;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public boolean isEnded() {
+        return ended;
     }
 
     public void setEndDate(Date endDate) {
@@ -70,14 +80,31 @@ public class Auction {
 
     public Date getEndDate() {
         return endDate;
-    } 
+    }
+
+    // Easton's changes
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Auction auction = (Auction) obj;
+         return itemName.equals(auction.itemName) && timer.equals(auction.timer);
+    }
 
     public String generateBidHistoryReport() {
         StringBuilder report = new StringBuilder();
         report.append("Bid History for Auction: ").append(itemName).append("\n");
-        for (Bid bid : bidHistory) {
-            report.append(bid.toString()).append("\n");
+        if (bidHistory != null) {
+            for (Bid bid : bidHistory) {
+                report.append(bid.toString()).append("\n");
+            }
+            return report.toString();
         }
-        return report.toString();
+        return "No bid history.";
     }
 }

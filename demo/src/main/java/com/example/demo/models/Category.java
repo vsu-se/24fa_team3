@@ -25,5 +25,17 @@ public class Category {
         return newItem;
     }
 
+    // Easton's Changes
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Category category = (Category) obj;
+        return name.equals(category.name);
+    }
 
 }
