@@ -26,4 +26,40 @@ public class TimeManager {
     public void adjustTime(LocalDateTime newTime) {
         offsetSeconds = Duration.between(LocalDateTime.now(), newTime).getSeconds();
     }
+
+    public String getFormattedTimeElapsed(long seconds) {
+        Object[][] timeUnits = {
+            {"Y", 365L * 24 * 60 * 60},
+            {"M", (365L / 12) * 24 * 60 * 60},
+            {"W", 7L * 24 * 60 * 60},
+            {"D", 24L * 60 * 60},
+            {"H", 60L * 60},
+            {"M", 60L},
+            {"S", 1L}
+        };
+
+        StringBuilder formattedTime = new StringBuilder();
+        
+        for (Object[] unit : timeUnits) {
+            String unitName = (String) unit[0];
+            long unitSeconds = (long) unit[1];
+
+            if (seconds >= unitSeconds) {
+                long value = seconds / unitSeconds;
+                formattedTime.append(value).append(unitName);
+                
+                seconds %= unitSeconds; 
+                
+                if (seconds > 0) {
+                    formattedTime.append(", ");
+                }
+            }
+
+            if (seconds == 0) {
+                break;
+            }
+        }
+        
+        return formattedTime.toString();
+    }
 }

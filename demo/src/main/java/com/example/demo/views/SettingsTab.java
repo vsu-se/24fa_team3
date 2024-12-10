@@ -23,6 +23,8 @@ public class SettingsTab {
     private TextField SystemTimeSetter;
     @FXML
     public Button SetSystemTimeButton;
+    @FXML
+    public Button ResumeRealTimeBtn;
     public TextField SellerCommissionTxtF;
     public Button BuyerPremiumBtn;
     public TextField BuyerPremiumTxtF;
@@ -33,6 +35,12 @@ public class SettingsTab {
 
     public static SettingsTab getInstance() {
         return instance;
+    }
+
+
+    @FXML
+    private void resumeRealTime(ActionEvent actionEvent) {
+        TimeManager.getInstance().adjustTime(LocalDateTime.now());
     }
 
     @FXML

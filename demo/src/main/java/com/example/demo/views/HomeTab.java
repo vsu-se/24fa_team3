@@ -53,7 +53,7 @@ public class HomeTab extends Application {
             tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
             // Set up scene and stage
-            Scene scene = new Scene(tabPane, 600, 600);
+            Scene scene = new Scene(tabPane, 625, 600);
             stage.setTitle("Welcome to GAI");
             stage.setScene(scene);
             stage.show();

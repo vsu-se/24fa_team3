@@ -17,6 +17,6 @@
       <DatePicker fx:id="SystemDateSetter" layoutX="297.0" layoutY="98.0" prefHeight="26.0" prefWidth="200.0"/>
       <TextField fx:id="SystemTimeSetter" layoutX="297.0" layoutY="135.0" prefHeight="26.0" prefWidth="200.0" promptText="Enter Time (HH:MM)" />
       <Button fx:id="SetSystemTimeButton" layoutX="505.0" layoutY="135.0" mnemonicParsing="false" onAction="#submitDateAndTime" text="Submit" />
-      <Button fx:id="ResumeRealTimeBtn" layoutX="300.0" layoutY="187.0" mnemonicParsing="false" text="Click here to resume real time" />
+      <Button fx:id="ResumeRealTimeBtn" layoutX="300.0" layoutY="187.0" mnemonicParsing="false" onAction="#resumeRealTime" text="Click here to resume real time" />
    </children>
 </AnchorPane>

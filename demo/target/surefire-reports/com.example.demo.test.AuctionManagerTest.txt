@@ -1,28 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.demo.test.AuctionManagerTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.104 s <<< FAILURE! -- in com.example.demo.test.AuctionManagerTest
-com.example.demo.test.AuctionManagerTest.testRemoveAuction -- Time elapsed: 0.035 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.util.Date.toInstant()" because "endDate" is null
-	at com.example.demo@1.0-SNAPSHOT/com.example.demo.models.Auction.<init>(Auction.java:25)
-	at com.example.demo@1.0-SNAPSHOT/com.example.demo.test.AuctionManagerTest.testRemoveAuction(AuctionManagerTest.java:25)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-com.example.demo.test.AuctionManagerTest.testAddAuction -- Time elapsed: 0.002 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.util.Date.toInstant()" because "endDate" is null
-	at com.example.demo@1.0-SNAPSHOT/com.example.demo.models.Auction.<init>(Auction.java:25)
-	at com.example.demo@1.0-SNAPSHOT/com.example.demo.test.AuctionManagerTest.testAddAuction(AuctionManagerTest.java:18)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-com.example.demo.test.AuctionManagerTest.testClearAllAuctions -- Time elapsed: 0.001 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.util.Date.toInstant()" because "endDate" is null
-	at com.example.demo@1.0-SNAPSHOT/com.example.demo.models.Auction.<init>(Auction.java:25)
-	at com.example.demo@1.0-SNAPSHOT/com.example.demo.test.AuctionManagerTest.testClearAllAuctions(AuctionManagerTest.java:34)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in com.example.demo.test.AuctionManagerTest
