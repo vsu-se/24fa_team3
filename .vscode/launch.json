@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UserTypeSelectTab",
+            "request": "launch",
+            "mainClass": "com.example.demo/com.example.demo.views.UserTypeSelectTab",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
             "name": "AuctionManagerTest",
             "request": "launch",
             "mainClass": "com.example.demo/com.example.demo.test.AuctionManagerTest",

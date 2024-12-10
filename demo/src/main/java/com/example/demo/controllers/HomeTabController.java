@@ -64,6 +64,32 @@ public class HomeTabController implements Initializable {
     }
 
 
+    public void restrictHomeAccess() {
+        switch(SettingsConfig.getInstance().getUserType()) {
+            case "Buyer":
+                ListItem_Btn.setDisable(true);
+                ItemName_TxtField.setDisable(true);
+                ItemPrice_TxtField.setDisable(true);
+                ItemShippingCost_TxtField.setDisable(true);
+                ItemEndDatePicker.setDisable(true);
+                ItemEndTimeTextField.setDisable(true);
+                categoryPicker_ComboBox.setDisable(true);
+                categorySubmission_Lbl.setDisable(true);
+                addCategory_Btn.setDisable(true);
+                removeCategory_Btn.setDisable(true);
+                categoryList_LV.setDisable(true);
+                categoryCheck_Lbl.setDisable(true);
+
+                break;
+            case "Seller":
+                categoryList_LV.setDisable(true);
+                categorySubmission_Lbl.setDisable(true);
+                addCategory_Btn.setDisable(true);
+                removeCategory_Btn.setDisable(true);
+                break;
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeClock();
@@ -93,6 +119,7 @@ public class HomeTabController implements Initializable {
             }
         });
 
+        restrictHomeAccess();
 
     }
 

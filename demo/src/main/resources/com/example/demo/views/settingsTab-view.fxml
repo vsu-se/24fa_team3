@@ -7,7 +7,7 @@
    <children>
       <Label layoutX="14.0" layoutY="63.0" text="Enter Seller Commission Below:" />
       <Label layoutX="14.0" layoutY="158.0" text="Enter Buyer Premium Below:" />
-      <TextField fx:id="SellerCommissionTxtF" layoutX="14.0" layoutY="97.0" prefHeight="26.0" prefWidth="166.0" />
+      <TextField fx:id="SellerCommissionTxtF" layoutX="14.0" layoutY="97.0" prefHeight="26.0" prefWidth="166.0" promptText="(number in percent)"/>
       <TextField fx:id="BuyerPremiumTxtF" layoutX="14.0" layoutY="187.0" />
       <Button fx:id="SellerCommissionBtn" layoutX="188.0" layoutY="97.0" mnemonicParsing="false" onAction="#sellerCommission" text="Submit" />
       <Button fx:id="BuyerPremiumBtn" layoutX="170.0" layoutY="187.0" mnemonicParsing="false" onAction="#buyerPremium" text="Submit" />

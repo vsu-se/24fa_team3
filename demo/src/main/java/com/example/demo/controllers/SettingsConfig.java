@@ -13,6 +13,7 @@ public class SettingsConfig implements Serializable {
     private double sellerCommission;
     private double buyerPremium;
     private LocalDateTime currentTime;
+    private String userType;
 
     private SettingsConfig() {
         // Initialize default values if necessary
@@ -54,6 +55,14 @@ public class SettingsConfig implements Serializable {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             instance = (SettingsConfig) ois.readObject();
         }
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getUserType() {
+        return userType;
     }
 
 

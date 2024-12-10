@@ -51,7 +51,7 @@ public class AuctionManagerTest {
         // Only category filter applied
         Category category = new Category("Electronics");
         List<Auction> result = getFilteredAuctions(category, null, null);
-        assertEquals(4, result.size());
+        assertEquals(5, result.size());
         assertTrue(result.stream().allMatch(a -> a.getCategory().equals(category)));
     }
 
@@ -59,7 +59,7 @@ public class AuctionManagerTest {
     public void testEndedFilterOnly() {
         // Only ended filter applied
         List<Auction> result = getFilteredAuctions(null, true, null);
-        assertEquals(4, result.size());
+        assertEquals(5, result.size());
         assertTrue(result.stream().allMatch(Auction::isEnded));
     }
 
@@ -67,7 +67,7 @@ public class AuctionManagerTest {
     public void testOwnedByUserFilterOnly() {
         // Only ownedByUser filter applied
         List<Auction> result = getFilteredAuctions(null, null, true);
-        assertEquals(4, result.size());
+        assertEquals(5, result.size());
         assertTrue(result.stream().allMatch(Auction::isOwnedByUser));
     }
 
@@ -85,7 +85,7 @@ public class AuctionManagerTest {
         // Category and ownedByUser filters applied
         Category category = new Category("Electronics");
         List<Auction> result = getFilteredAuctions(category, null, true);
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
         assertTrue(result.stream().allMatch(a -> a.getCategory().equals(category) && a.isOwnedByUser()));
     }
 
@@ -93,7 +93,7 @@ public class AuctionManagerTest {
     public void testEndedAndOwnedByUserFilters() {
         // Ended and ownedByUser filters applied
         List<Auction> result = getFilteredAuctions(null, true, true);
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
         assertTrue(result.stream().allMatch(a -> a.isEnded() && a.isOwnedByUser()));
     }
 
@@ -102,7 +102,7 @@ public class AuctionManagerTest {
         // All filters applied
         Category category = new Category("Electronics");
         List<Auction> result = getFilteredAuctions(category, true, true);
-        assertEquals(1, result.size());
+        assertEquals(2, result.size());
         assertTrue(result.stream().allMatch(a -> a.getCategory().equals(category) && a.isEnded() && a.isOwnedByUser()));
     }
 

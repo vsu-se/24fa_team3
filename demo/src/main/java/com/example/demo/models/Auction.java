@@ -3,6 +3,7 @@ package com.example.demo.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,11 @@ public class Auction {
         this.ended = ended;
         this.startingPrice = startingPrice;
         this.category = category;
+    }
+
+    public Auction(String itemName, Date endDate, boolean isOwnedByUser, boolean ended, double startingPrice, Category category, List<Bid> bidHistory) {
+        this(itemName, endDate, isOwnedByUser, ended, startingPrice, category);
+        this.bidHistory = bidHistory;
     }
 
     public double getStartingPrice() {
@@ -113,4 +119,29 @@ public class Auction {
         }
         return "No bid history.";
     }
+
+    public String generateBidHistoryReportFull() {
+        StringBuilder report = new StringBuilder();
+        if (bidHistory.size() == 0) {
+            return "No bid history.";
+        }
+        report.append(String.format("Bid History for %s:\n", itemName));
+        if (isEnded()) {
+            report.append(String.format("- Winning bid: $%.2f", currentBid.getAmount())).append("\n");
+        }
+        else {
+            report.append(String.format("- Current highest bid: $%.2f", currentBid.getAmount())).append("\n");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy HH:mm:ss");
+        for (Bid bid : bidHistory) {
+            report.append(String.format("-- " + bid.getDateTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(formatter) + " , $%.2f", bid.getAmount())).append("\n");
+        }
+        return report.toString();
+    }
+
+    @Override
+    public String toString() {
+        return itemName;
+    }
+
 }

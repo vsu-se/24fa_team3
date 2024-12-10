@@ -2,6 +2,7 @@ package com.example.demo.views;
 
 import com.example.demo.controllers.AuctionTabController;
 import com.example.demo.controllers.HomeTabController;
+import com.example.demo.controllers.SettingsConfig;
 import com.example.demo.models.Auction;
 import com.example.demo.models.Category;
 import com.example.demo.models.Item;
@@ -42,7 +43,16 @@ public class AuctionsTab {
         viewCategoryOptions.setPromptText("Find by Category");
         getCategorySelected = new Button("Search");
 
-        HBox buttonBox = new HBox(10, viewUserAuctions, viewActiveAuctions, viewEndedAuctions, viewCategoryOptions, getCategorySelected);
+        HBox buttonBox = new HBox();
+        if (SettingsConfig.getInstance().getUserType().equals("Buyer")) {
+            viewUserAuctions.setVisible(false);
+             buttonBox = new HBox(10, viewActiveAuctions, viewEndedAuctions, viewCategoryOptions, getCategorySelected);
+
+        }
+        else {
+            buttonBox = new HBox(10, viewUserAuctions, viewActiveAuctions, viewEndedAuctions, viewCategoryOptions, getCategorySelected);
+        }
+
         buttonBox.setPadding(new Insets(10, 10, 10, 10));
 
         VBox auctionsContent = new VBox(buttonBox, auctionsListView);

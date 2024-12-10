@@ -195,5 +195,9 @@ public class AuctionManager {
         addAuction(new Auction("Table", timerGoing, false, false, 5, null));     // Not ended, not owned by user, not in category
         addAuction(new Auction("Water", timerEnded, true, true, 5, null));       // Owned by user, ended, not in category
 
+        List<Bid> bidHistory = new ArrayList<>();
+        bidHistory.add(new Bid(100));
+        bidHistory.add(new Bid(200));
+        addAuction(new Auction("Laptop", timerEnded, true, true, 200, category, bidHistory));  // Owned by user, ended, in category, has bid history
     }
 }
