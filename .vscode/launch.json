@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "com.example.demo/com.example.demo.test.AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "HomeTab",
+            "request": "launch",
+            "mainClass": "com.example.demo.views.HomeTab",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "demo/AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "com.example.demo/AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "com.example.demo/com.example.demo.AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
             "name": "HomeTab",
             "request": "launch",
             "mainClass": "com.example.demo/com.example.demo.views.HomeTab",
