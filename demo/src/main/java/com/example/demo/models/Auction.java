@@ -3,8 +3,11 @@ package com.example.demo.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.example.demo.utils.AuctionManager;
 import com.example.demo.utils.TimeManager;
 
 public class Auction {
@@ -14,7 +17,7 @@ public class Auction {
     private Category category;
     private Bid startingBid;
     private double startingPrice;
-    private List<Bid> bidHistory;
+    private List<Bid> bidHistory = new ArrayList<>();
     private boolean isOwnedByUser;
     private boolean ended;
 
@@ -22,6 +25,7 @@ public class Auction {
         this.itemName = itemName;
         this.endDate = endDate;
         this.isOwnedByUser = isOwnedByUser;
+        this.currentBid = new Bid(startingPrice);
         this.ended = ended;
         this.startingPrice = startingPrice;
         this.category = category;
@@ -67,14 +71,13 @@ public class Auction {
     }
 
     public void deleteAuction() {
-        // Logic to delete the auction
-        System.out.println("Auction " + itemName + " has been deleted.");
+        AuctionManager.getInstance().removeAuction(this);
     }
 
     public void endAuction() {
         // Logic to end the auction
         this.ended = true;
-        System.out.println("Auction " + itemName + " has ended.");
+        this.endDate = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public void setBid(Bid bid) {
@@ -105,13 +108,8 @@ public class Auction {
     }
 
     public String generateBidHistoryReport() {
-        StringBuilder report = new StringBuilder();
-        report.append("Bid History for Auction: ").append(itemName).append("\n");
-        if (bidHistory != null) {
-            for (Bid bid : bidHistory) {
-                report.append(bid.toString()).append("\n");
-            }
-            return report.toString();
+        if (bidHistory.size() != 0) {
+            return String.format("Winning bid: $%.2f", currentBid.getAmount());
         }
         return "No bid history.";
     }

@@ -32,7 +32,7 @@ public class AuctionsTab {
 
     public AuctionsTab() {
         auctionsTab = new Tab("Auctions");
-
+        AuctionTabController.getInstance().setAuctionTab(this);
         auctionsListView = new ListView<>();
 
         viewUserAuctions = new Button("View My Auctions");

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,6 +56,8 @@ public class HomeTab extends Application {
             // Set up scene and stage
             Scene scene = new Scene(tabPane, 625, 600);
             stage.setTitle("Welcome to GAI");
+            Image icon = new Image(getClass().getResourceAsStream("/gai_logo.png"));
+            stage.getIcons().add(icon);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
