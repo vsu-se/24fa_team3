@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AuctionTabController {
 
@@ -32,6 +33,8 @@ public class AuctionTabController {
     public void setAuctionTab(AuctionsTab auctionTab) {
         this.auctionTab = auctionTab;
     }
+
+
 
     public HBox createActiveAuctionDisplay(Auction a) {
         HBox auctionDisplay = new HBox(10);

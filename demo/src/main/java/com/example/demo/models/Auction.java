@@ -12,7 +12,6 @@ public class Auction {
     private Bid startingBid;
     private List<Bid> bidHistory;
     private boolean isOwnedByUser;
-    @SuppressWarnings("unused")
     private boolean ended;
 
     public Auction(String itemName, Date timer, boolean isOwnedByUser, boolean ended, Bid startingBid, Category category) {

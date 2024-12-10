@@ -14,6 +14,15 @@ public class AuctionManager {
 
     private static AuctionManager instance = new AuctionManager();
     private List<Auction> allAuctions = new ArrayList<>();
+    private Category selectedCategory;
+
+    public Category getSelectedCategory() {
+        return selectedCategory;
+    }
+
+    public void setSelectedCategory(Category selectedCategory) {
+        this.selectedCategory = selectedCategory;
+    }
 
     private AuctionManager() {
         makeMockAuctions();

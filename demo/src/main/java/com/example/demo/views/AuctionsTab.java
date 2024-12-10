@@ -28,6 +28,7 @@ public class AuctionsTab {
     private Button viewUserAuctions;
     private ComboBox<String> viewCategoryOptions;
     private Button getCategorySelected;
+    private String selectedAuctionsList;
 
     public AuctionsTab() {
         auctionsTab = new Tab("Auctions");
@@ -50,10 +51,16 @@ public class AuctionsTab {
         viewUserAuctions.setOnAction(event -> showUserAuctions());
         viewActiveAuctions.setOnAction(event -> showActiveAuctions());
         viewEndedAuctions.setOnAction(event -> showEndedAuctions());
+
         viewCategoryOptions.setOnMouseClicked(event -> {
             updateCategoryList();
         });
-        getCategorySelected.setOnAction(event -> selectCategory());
+
+
+        getCategorySelected.setOnAction(event -> {
+            selectCategory();
+            showSortedAuctions();
+        });
     }
 
     public static AuctionsTab getInstance() {
@@ -91,7 +98,7 @@ public class AuctionsTab {
             HBox auctionDisplay = AuctionTabController.getInstance().createActiveAuctionDisplay(auction);
             auctionsListView.getItems().add(auctionDisplay);
         }
-
+        selectedAuctionsList = "User Auctions";
     }
 
     public void selectCategory() {
@@ -107,6 +114,7 @@ public class AuctionsTab {
 
         for (Category category : categories) {
             if (selected.equals(category.getName())) {
+                AuctionManager.getInstance().setSelectedCategory(category);
                 filteredItems.addAll(category.getNewItem());
             }
         }
@@ -121,6 +129,7 @@ public class AuctionsTab {
             auctionsListView.getItems().add(auctionDisplay);
         }
 
+        selectedAuctionsList = "Active Auctions";
 
     }
 
@@ -131,6 +140,44 @@ public class AuctionsTab {
             HBox auctionDisplay = AuctionTabController.getInstance().createEndedAuctionDisplay(auction);
             auctionsListView.getItems().add(auctionDisplay);
         }
+
+        selectedAuctionsList = "Ended Auctions";
+    }
+
+    private void showSortedAuctions() {
+        Boolean ended = null;
+        Boolean ownedByUser = null;
+        if (AuctionManager.getInstance().getSelectedCategory() == null) {
+            return;
+        }
+        switch (selectedAuctionsList) {
+            case "User Auctions":
+                ownedByUser = true;
+                break;
+            case "Active Auctions":
+                ended = false;
+                break;
+            case "Ended Auctions":
+                ended = true;
+                break;
+            default:
+                break;
+        }
+        List<Auction> sortedAuctions = AuctionManager.getInstance().getFilteredAuctions(AuctionManager.getInstance().getSelectedCategory(), ended, ownedByUser);
+        auctionsListView.getItems().clear();
+        if (ended != null && ended == true) {
+            for (Auction auction : sortedAuctions) {
+                HBox auctionDisplay = AuctionTabController.getInstance().createEndedAuctionDisplay(auction);
+                auctionsListView.getItems().add(auctionDisplay);
+            }
+        }
+        else {
+            for (Auction auction : sortedAuctions) {
+                HBox auctionDisplay = AuctionTabController.getInstance().createActiveAuctionDisplay(auction);
+                auctionsListView.getItems().add(auctionDisplay);
+            }
+        }
+
     }
 
 
