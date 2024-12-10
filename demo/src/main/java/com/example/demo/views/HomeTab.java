@@ -13,9 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomeTab extends Application {
-    //public int xcontrollerr;
-    //private AuctionsTab auctionInstance = new AuctionsTab();
-    //private static HomeTabController instanceHomeTabController = new HomeTabController();
 
     @Override
     public void start(Stage stage) {
