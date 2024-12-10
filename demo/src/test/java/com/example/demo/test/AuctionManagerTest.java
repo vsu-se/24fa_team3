@@ -15,14 +15,14 @@ public class AuctionManagerTest {
 
     @Test
     public void testAddAuction() {
-        Auction auction = new Auction("Item9", null, true, false, null, null);
+        Auction auction = new Auction("Item9", null, true, false, 5, null);
         addAuction(auction);
         assertTrue(allAuctions.contains(auction), "Test failed: Auction not added");
     }
 
     @Test
     public void testRemoveAuction() {
-        Auction auction = new Auction("Item10", null, true, false, null, null);
+        Auction auction = new Auction("Item10", null, true, false, 5, null);
         addAuction(auction);
         assertTrue(allAuctions.contains(auction), "Test failed: Auction not added");
         AuctionManager.getInstance().removeAuction(auction);
@@ -31,7 +31,7 @@ public class AuctionManagerTest {
 
     @Test
     public void testClearAllAuctions() {
-        Auction auction = new Auction("Item11", null, true, false, null, null);
+        Auction auction = new Auction("Item11", null, true, false, 5, null);
         addAuction(auction);
         assertTrue(allAuctions.contains(auction), "Test failed: Auction not added");
         AuctionManager.getInstance().clearAuctions();

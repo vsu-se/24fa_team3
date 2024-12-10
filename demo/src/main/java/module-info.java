@@ -1,6 +1,7 @@
 module com.example.demo {
     requires transitive javafx.controls;
     requires javafx.fxml;
+    requires javafx.base;
     exports com.example.demo.controllers;
     exports com.example.demo.models;
     exports com.example.demo.utils;

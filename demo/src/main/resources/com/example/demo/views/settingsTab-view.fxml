@@ -14,8 +14,9 @@
       <Label fx:id="sellerCommissionErrorLbl" layoutX="272.0" layoutY="101.0" text="Please enter a positive number" textFill="#ec0909" visible="false" />
       <Label fx:id="BuyerPremiumErrorLbl" layoutX="258.0" layoutY="191.0" text="Please enter a positive number" textFill="#fa0000" visible="false" />
       <Label layoutX="297.0" layoutY="63.0" text="Set Date/Time Below:" />
-      <TextField layoutX="296.0" layoutY="98.0" />
-      <Button fx:id="DateAndTimeBtn" layoutX="463.0" layoutY="98.0" mnemonicParsing="false" text="Submit" />
+      <DatePicker fx:id="SystemDateSetter" layoutX="297.0" layoutY="98.0" prefHeight="26.0" prefWidth="200.0"/>
+      <TextField fx:id="SystemTimeSetter" layoutX="297.0" layoutY="135.0" prefHeight="26.0" prefWidth="200.0" promptText="Enter Time (HH:MM)" />
+      <Button fx:id="SetSystemTimeButton" layoutX="505.0" layoutY="135.0" mnemonicParsing="false" onAction="#submitDateAndTime" text="Submit" />
       <Button fx:id="ResumeRealTimeBtn" layoutX="300.0" layoutY="187.0" mnemonicParsing="false" text="Click here to resume real time" />
    </children>
 </AnchorPane>

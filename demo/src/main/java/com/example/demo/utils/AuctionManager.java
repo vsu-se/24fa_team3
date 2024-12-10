@@ -186,14 +186,14 @@ public class AuctionManager {
         Date timerGoing = calendar.getTime();
         calendar.set(2024, Calendar.DECEMBER, 8, 12, 0, 0);
         Date timerEnded = calendar.getTime();
-        addAuction(new Auction("Phone", timerGoing, true, false, null, category));  // Owned by user, ended, in category
-        addAuction(new Auction("Computer", timerEnded, false, true, null, category));  // Ended, not owned by user, in category
-        addAuction(new Auction("Airpods", timerGoing, false, false, null, category)); // Not ended, not owned by user, in category
-        addAuction(new Auction("Projector", timerEnded, true, true, null, category));   // Owned by user, ended, in category
-        addAuction(new Auction("Scarf", timerGoing, true, false, null, null));      // Owned by user, ended, not in category
-        addAuction(new Auction("Car", timerEnded, false, true, null, null));      // Ended, not owned by user, not in category
-        addAuction(new Auction("Table", timerGoing, false, false, null, null));     // Not ended, not owned by user, not in category
-        addAuction(new Auction("Water", timerEnded, true, true, null, null));       // Owned by user, ended, not in category
+        addAuction(new Auction("Phone", timerGoing, true, false, 5, category));  // Owned by user, ended, in category
+        addAuction(new Auction("Computer", timerEnded, false, true, 5, category));  // Ended, not owned by user, in category
+        addAuction(new Auction("Airpods", timerGoing, false, false, 5, category)); // Not ended, not owned by user, in category
+        addAuction(new Auction("Projector", timerEnded, true, true, 5, category));   // Owned by user, ended, in category
+        addAuction(new Auction("Scarf", timerGoing, true, false, 5, null));      // Owned by user, ended, not in category
+        addAuction(new Auction("Car", timerEnded, false, true, 5, null));      // Ended, not owned by user, not in category
+        addAuction(new Auction("Table", timerGoing, false, false, 5, null));     // Not ended, not owned by user, not in category
+        addAuction(new Auction("Water", timerEnded, true, true, 5, null));       // Owned by user, ended, not in category
 
     }
 }

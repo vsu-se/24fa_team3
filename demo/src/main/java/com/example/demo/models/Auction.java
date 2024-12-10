@@ -1,34 +1,42 @@
 package com.example.demo.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import com.example.demo.utils.TimeManager;
 
 public class Auction {
     private String itemName;
-    private Date timer;
     private Date endDate;
     private Bid currentBid;
     private Category category;
     private Bid startingBid;
+    private double startingPrice;
     private List<Bid> bidHistory;
     private boolean isOwnedByUser;
     private boolean ended;
 
-    public Auction(String itemName, Date timer, boolean isOwnedByUser, boolean ended, Bid startingBid, Category category) {
+    public Auction(String itemName, Date endDate, boolean isOwnedByUser, boolean ended, double startingPrice, Category category) {
         this.itemName = itemName;
-        this.timer = timer;
+        this.endDate = endDate;
         this.isOwnedByUser = isOwnedByUser;
         this.ended = ended;
-        this.startingBid = startingBid;
+        this.startingPrice = startingPrice;
         this.category = category;
+    }
+
+    public double getStartingPrice() {
+        return startingPrice;
+    }
+
+    public void setStartingPrice(double startingPrice) {
+        this.startingPrice = startingPrice;
     }
 
     public String getItemName() {
         return itemName;
-    }
-
-    public Date getTimer() {
-        return timer;
     }
 
     public Bid getStartingBid() {
@@ -48,6 +56,9 @@ public class Auction {
     }
 
     public boolean isEnded() {
+        if (endDate != null) {
+            return TimeManager.getInstance().now().isAfter(endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+        }
         return ended;
     }
 
@@ -90,7 +101,7 @@ public class Auction {
         }
 
         Auction auction = (Auction) obj;
-         return itemName.equals(auction.itemName) && timer.equals(auction.timer);
+         return itemName.equals(auction.itemName) && endDate.equals(auction.endDate);
     }
 
     public String generateBidHistoryReport() {

@@ -4,6 +4,7 @@ com\example\demo\models\BuyersReport.class
 com\example\demo\controllers\HomeTabController.class
 com\example\demo\controllers\SettingsConfig.class
 com\example\demo\models\Item.class
+com\example\demo\utils\TimeManager.class
 com\example\demo\views\SettingsTab.class
 com\example\demo\views\HomeTab.class
 com\example\demo\models\Auction.class
@@ -12,5 +13,7 @@ com\example\demo\models\EndedAuction.class
 com\example\demo\views\ReportsTab.class
 module-info.class
 com\example\demo\models\SellersReport.class
+com\example\demo\controllers\HomeTabController$1$1.class
 com\example\demo\models\Bid.class
 com\example\demo\utils\AuctionManager.class
+com\example\demo\controllers\HomeTabController$1.class
