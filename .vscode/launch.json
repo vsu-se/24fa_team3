@@ -6,6 +6,62 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UserTypeSelectTab",
+            "request": "launch",
+            "mainClass": "com.example.demo/com.example.demo.views.UserTypeSelectTab",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "com.example.demo/com.example.demo.test.AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "HomeTab",
+            "request": "launch",
+            "mainClass": "com.example.demo.views.HomeTab",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "demo/AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "com.example.demo/AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "com.example.demo/com.example.demo.AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "HomeTab",
+            "request": "launch",
+            "mainClass": "com.example.demo.views.HomeTab",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "AuctionManagerTest",
+            "request": "launch",
+            "mainClass": "AuctionManagerTest",
+            "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
             "name": "HomeTab",
             "request": "launch",
             "mainClass": "com.example.demo/com.example.demo.views.HomeTab",
@@ -23,6 +79,13 @@
             "request": "launch",
             "mainClass": "com.example.demo/com.example.demo.HomeTab",
             "projectName": "Prototype_1"
+        },
+        {
+            "type": "java",
+            "name": "Launch JavaFX",
+            "request": "launch",
+            "mainClass": "com.example.demo.HomeTab",
+            "vmArgs": "--module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }

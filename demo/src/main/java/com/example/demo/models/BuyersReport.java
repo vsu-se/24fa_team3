@@ -35,7 +35,9 @@ public class BuyersReport implements Serializable {
     public String generateReport() {
         // Sort items in reverse chronological order
         Collections.sort(boughtItems, Comparator.comparing(Item::getSoldDate).reversed());
-
+        if (boughtItems.isEmpty()) {
+            return "No items bought.";
+        }
         double totalAmountBought = 0;
         double totalBuyerPremiumsPaid = 0;
         double totalShippingCostsPaid = 0;
@@ -50,14 +52,14 @@ public class BuyersReport implements Serializable {
             totalBuyerPremiumsPaid += itemBuyerPremium;
             totalShippingCostsPaid += item.getShippingCost();
 
-            report.append(String.format("Name: %s, Price: %.2f, Buyer's Premium: %.2f, Shipping: %.2f\n",
+            report.append(String.format("Name: %s, Price: $%.2f, Buyer's Premium: $%.2f, Shipping: $%.2f\n",
                     item.getName(), item.getPrice(), itemBuyerPremium, item.getShippingCost()));
         }
 
         report.append("--------------------------------------------------\n");
-        report.append(String.format("Total Amount Bought: %.2f\n", totalAmountBought));
-        report.append(String.format("Total Buyer's Premiums Paid: %.2f\n", totalBuyerPremiumsPaid));
-        report.append(String.format("Total Shipping Costs Paid: %.2f\n", totalShippingCostsPaid));
+        report.append(String.format("Total Amount Bought: $%.2f\n", totalAmountBought));
+        report.append(String.format("Total Buyer's Premiums Paid: $%.2f\n", totalBuyerPremiumsPaid));
+        report.append(String.format("Total Shipping Costs Paid: $%.2f\n", totalShippingCostsPaid));
 
         return report.toString();
     }
@@ -72,5 +74,9 @@ public class BuyersReport implements Serializable {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             instance = (BuyersReport) ois.readObject();
         }
+    }
+
+    public void clearBoughtItems() {
+        boughtItems.clear();
     }
 }

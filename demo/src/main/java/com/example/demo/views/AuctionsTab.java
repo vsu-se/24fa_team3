@@ -1,16 +1,23 @@
 package com.example.demo.views;
 
 import com.example.demo.controllers.AuctionTabController;
+import com.example.demo.controllers.HomeTabController;
+import com.example.demo.controllers.SettingsConfig;
 import com.example.demo.models.Auction;
+import com.example.demo.models.Category;
+import com.example.demo.models.Item;
 import com.example.demo.utils.AuctionManager;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AuctionsTab {
@@ -20,17 +27,32 @@ public class AuctionsTab {
     private Button viewEndedAuctions;
     private Button viewActiveAuctions;
     private Button viewUserAuctions;
+    private ComboBox<String> viewCategoryOptions;
+    private Button getCategorySelected;
+    private String selectedAuctionsList;
 
     public AuctionsTab() {
         auctionsTab = new Tab("Auctions");
-
+        AuctionTabController.getInstance().setAuctionTab(this);
         auctionsListView = new ListView<>();
 
         viewUserAuctions = new Button("View My Auctions");
         viewActiveAuctions = new Button("View Active Auctions");
         viewEndedAuctions = new Button("View Ended Auctions");
+        viewCategoryOptions = new ComboBox<>();
+        viewCategoryOptions.setPromptText("Find by Category");
+        getCategorySelected = new Button("Search");
 
-        HBox buttonBox = new HBox(10, viewUserAuctions, viewActiveAuctions, viewEndedAuctions);
+        HBox buttonBox = new HBox();
+        if (SettingsConfig.getInstance().getUserType().equals("Buyer")) {
+            viewUserAuctions.setVisible(false);
+             buttonBox = new HBox(10, viewActiveAuctions, viewEndedAuctions, viewCategoryOptions, getCategorySelected);
+
+        }
+        else {
+            buttonBox = new HBox(10, viewUserAuctions, viewActiveAuctions, viewEndedAuctions, viewCategoryOptions, getCategorySelected);
+        }
+
         buttonBox.setPadding(new Insets(10, 10, 10, 10));
 
         VBox auctionsContent = new VBox(buttonBox, auctionsListView);
@@ -40,7 +62,15 @@ public class AuctionsTab {
         viewActiveAuctions.setOnAction(event -> showActiveAuctions());
         viewEndedAuctions.setOnAction(event -> showEndedAuctions());
 
-        AuctionTabController.getInstance().setAuctionTab(this);
+        viewCategoryOptions.setOnMouseClicked(event -> {
+            updateCategoryList();
+        });
+
+
+        getCategorySelected.setOnAction(event -> {
+            selectCategory();
+            showSortedAuctions();
+        });
     }
 
     public static AuctionsTab getInstance() {
@@ -51,9 +81,25 @@ public class AuctionsTab {
         return auctionsListView;
     }
 
+
     public Tab getAuctionsTab() {
         return auctionsTab;
     }
+
+    public void updateCategoryList() {
+        List<Category> categoryList = HomeTabController.getInstance().getCategoryList();
+        List<String> categoryStrings = FXCollections.observableArrayList();
+
+        for (Category category : categoryList) {
+            if(!categoryStrings.contains(category.getName())) {
+                categoryStrings.add(category.getName());
+            }
+        }
+            viewCategoryOptions.getItems().clear();
+            viewCategoryOptions.getItems().addAll(categoryStrings);
+    }
+
+
 
     private void showUserAuctions() {
         List<Auction> userAuctions = fetchUserAuctions();
@@ -62,6 +108,27 @@ public class AuctionsTab {
             HBox auctionDisplay = AuctionTabController.getInstance().createActiveAuctionDisplay(auction);
             auctionsListView.getItems().add(auctionDisplay);
         }
+        selectedAuctionsList = "User Auctions";
+    }
+
+    public void selectCategory() {
+        String selected = viewCategoryOptions.getValue();
+
+        if (selected == null) {
+            return;
+        }
+
+        ArrayList<Category> categories = HomeTabController.getInstance().getCategoryList();
+        ArrayList<Item> filteredItems = new ArrayList<>();
+        //filteredItems.clear();
+
+        for (Category category : categories) {
+            if (selected.equals(category.getName())) {
+                AuctionManager.getInstance().setSelectedCategory(category);
+                filteredItems.addAll(category.getNewItem());
+            }
+        }
+
     }
 
     private void showActiveAuctions() {
@@ -71,6 +138,9 @@ public class AuctionsTab {
             HBox auctionDisplay = AuctionTabController.getInstance().createActiveAuctionDisplay(auction);
             auctionsListView.getItems().add(auctionDisplay);
         }
+
+        selectedAuctionsList = "Active Auctions";
+
     }
 
     private void showEndedAuctions() {
@@ -80,7 +150,46 @@ public class AuctionsTab {
             HBox auctionDisplay = AuctionTabController.getInstance().createEndedAuctionDisplay(auction);
             auctionsListView.getItems().add(auctionDisplay);
         }
+
+        selectedAuctionsList = "Ended Auctions";
     }
+
+    private void showSortedAuctions() {
+        Boolean ended = null;
+        Boolean ownedByUser = null;
+        if (AuctionManager.getInstance().getSelectedCategory() == null) {
+            return;
+        }
+        switch (selectedAuctionsList) {
+            case "User Auctions":
+                ownedByUser = true;
+                break;
+            case "Active Auctions":
+                ended = false;
+                break;
+            case "Ended Auctions":
+                ended = true;
+                break;
+            default:
+                break;
+        }
+        List<Auction> sortedAuctions = AuctionManager.getInstance().getFilteredAuctions(AuctionManager.getInstance().getSelectedCategory(), ended, ownedByUser);
+        auctionsListView.getItems().clear();
+        if (ended != null && ended == true) {
+            for (Auction auction : sortedAuctions) {
+                HBox auctionDisplay = AuctionTabController.getInstance().createEndedAuctionDisplay(auction);
+                auctionsListView.getItems().add(auctionDisplay);
+            }
+        }
+        else {
+            for (Auction auction : sortedAuctions) {
+                HBox auctionDisplay = AuctionTabController.getInstance().createActiveAuctionDisplay(auction);
+                auctionsListView.getItems().add(auctionDisplay);
+            }
+        }
+
+    }
+
 
     private List<Auction> fetchUserAuctions() {
         return AuctionManager.getInstance().getUserAuctions();
@@ -93,4 +202,5 @@ public class AuctionsTab {
     private List<Auction> fetchEndedAuctions() {
         return AuctionManager.getInstance().getEndedAuctions();
     }
+
 }

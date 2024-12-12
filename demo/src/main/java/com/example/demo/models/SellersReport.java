@@ -1,6 +1,8 @@
 package com.example.demo.models;
 
 import java.io.*;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,10 +34,16 @@ public class SellersReport implements Serializable {
         soldItems.add(item);
     }
 
+    public void clearSoldItems() {
+        soldItems.clear();
+    }
+
     public String generateReport() {
         // Sort items in reverse chronological order
         Collections.sort(soldItems, Comparator.comparing(Item::getSoldDate).reversed());
-
+        if (soldItems.isEmpty()) {
+            return "No items sold.";
+        }
         double totalWinningBids = 0;
         double totalShippingCosts = 0;
         double totalSellerCommissions = 0;
@@ -45,22 +53,36 @@ public class SellersReport implements Serializable {
         report.append("--------------------------------------------------\n");
 
         for (Item item : soldItems) {
-            double itemSellerCommission = item.getPrice() * sellerCommission / 100;
-            totalWinningBids += item.getPrice();
-            totalShippingCosts += item.getShippingCost();
-            totalSellerCommissions += itemSellerCommission;
+            if (item.getPrice() == 0) {
+                double itemSellerCommission = 0;
+                totalWinningBids += 0;
+                totalShippingCosts += 0;
+                totalSellerCommissions += 0;
 
-            report.append(String.format("Name: %s, Price: %.2f, Seller's Commission: %.2f, Shipping: %.2f\n",
-                    item.getName(), item.getPrice(), itemSellerCommission, item.getShippingCost()));
+                report.append(String.format("Name: %s, Did Not Sell\n",
+                item.getName(), itemSellerCommission, item.getShippingCost()));
+            }
+            else {
+                double itemSellerCommission = item.getPrice() * sellerCommission / 100;
+                totalWinningBids += item.getPrice();
+                totalShippingCosts += item.getShippingCost();
+                totalSellerCommissions += itemSellerCommission;
+    
+                
+                report.append(String.format("Name: %s, Price: $%.2f, Seller's Commission: $%.2f, Shipping: $%.2f\n",
+                item.getName(), item.getPrice(), itemSellerCommission, item.getShippingCost()));
+            
+            }
+            
         }
 
         double totalProfits = totalWinningBids - totalSellerCommissions;
 
         report.append("--------------------------------------------------\n");
-        report.append(String.format("Total Winning Bids: %.2f\n", totalWinningBids));
-        report.append(String.format("Total Shipping Costs: %.2f\n", totalShippingCosts));
-        report.append(String.format("Total Seller's Commissions: %.2f\n", totalSellerCommissions));
-        report.append(String.format("Total Profits: %.2f\n", totalProfits));
+        report.append(String.format("Total Winning Bids: $%.2f\n", totalWinningBids));
+        report.append(String.format("Total Shipping Costs: $%.2f\n", totalShippingCosts));
+        report.append(String.format("Total Seller's Commissions: $%.2f\n", totalSellerCommissions));
+        report.append(String.format("Total Profits: $%.2f\n", totalProfits));
 
         return report.toString();
     }

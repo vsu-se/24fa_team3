@@ -1,8 +1,11 @@
 package com.example.demo.views;
 
 import java.util.Date;
+import java.util.List;
 
 import com.example.demo.controllers.SettingsConfig;
+import com.example.demo.utils.AuctionManager;
+import com.example.demo.models.Auction;
 import com.example.demo.models.Bid;
 import com.example.demo.models.BuyersReport;
 import com.example.demo.models.EndedAuction;
@@ -14,6 +17,7 @@ import java.io.IOException;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 
 public class ReportsTab {
@@ -24,6 +28,7 @@ public class ReportsTab {
     private Button generateBidHistoryReportButton;
     private Button saveDataButton;
     private Button loadDataButton;
+    private ComboBox<Auction> auctionComboBox; // ComboBox to select auction
 
     public ReportsTab() {
         reportsTab = new Tab("Reports");
@@ -33,20 +38,47 @@ public class ReportsTab {
         generateBidHistoryReportButton = new Button("Generate Bid History Report");
         saveDataButton = new Button("Save Data");
         loadDataButton = new Button("Load Data");
+        auctionComboBox = new ComboBox<>(); // Create ComboBox
 
         reportArea.setEditable(false);
-        VBox reportsContent = new VBox(generateSellersReportButton, generateBuyersReportButton, generateBidHistoryReportButton, saveDataButton, loadDataButton, reportArea);
+
+        // Add auctions to ComboBox
+        List<Auction> auctions = AuctionManager.getInstance().getAllAuctions(); // Get all auctions
+        auctionComboBox.getItems().addAll(auctions); // Add auctions to the ComboBox
+        VBox reportsContent = new VBox();
+        switch (SettingsConfig.getInstance().getUserType()) {
+            case "Seller":
+                reportsContent = new VBox(auctionComboBox, generateSellersReportButton,
+                generateBidHistoryReportButton, reportArea);
+                break;
+            case "Buyer":
+                reportsContent = new VBox(auctionComboBox, generateBuyersReportButton,
+                generateBidHistoryReportButton, reportArea);
+                break;
+            case "Admin":
+                reportsContent = new VBox(auctionComboBox, generateSellersReportButton, generateBuyersReportButton,
+                generateBidHistoryReportButton, saveDataButton, loadDataButton, reportArea);
+                break;
+        }
+         
         reportsTab.setContent(reportsContent);
 
         // Add event handler for the seller's report button
         generateSellersReportButton.setOnAction(event -> {
             // Generate the seller's report
             SellersReport report = SellersReport.getInstance();
-
-            // Add some sample sold items
-            report.addSoldItem(new Item("Item 1", 100.00, SettingsConfig.getInstance().getSellerCommission(), 5.00, new Date()));
-            report.addSoldItem(new Item("Item 2", 200.00, SettingsConfig.getInstance().getSellerCommission(), 10.00, new Date(System.currentTimeMillis() - 100000)));
-            report.addSoldItem(new Item("Item 3", 150.00, SettingsConfig.getInstance().getSellerCommission(), 7.50, new Date(System.currentTimeMillis() - 200000)));
+            reportArea.clear();
+            SellersReport.getInstance().clearSoldItems();
+            for (Auction auction : AuctionManager.getInstance().getUserAuctions()) {
+                if (auction.isEnded()) {
+                    if (auction.getBidHistory().size() > 0) {
+                        report.addSoldItem(new Item(auction.getItemName(), auction.getCurrentBid().getAmount(), SettingsConfig.getInstance().getSellerCommission(), 5, auction.getEndDate()));
+                    }
+                    else {
+                        report.addSoldItem(new Item(auction.getItemName(), 0, SettingsConfig.getInstance().getSellerCommission(), 5, auction.getEndDate()));
+                    }
+                }
+            }
 
             String reportText = report.generateReport();
             reportArea.setText(reportText);
@@ -56,28 +88,29 @@ public class ReportsTab {
         generateBuyersReportButton.setOnAction(event -> {
             // Generate the buyer's report
             BuyersReport report = BuyersReport.getInstance();
-
-            // Add some sample bought items
-            report.addBoughtItem(new Item("Item 1", 100.00, SettingsConfig.getInstance().getBuyerPremium(), 5.00, new Date()));
-            report.addBoughtItem(new Item("Item 2", 200.00, SettingsConfig.getInstance().getBuyerPremium(), 10.00, new Date(System.currentTimeMillis() - 100000)));
-            report.addBoughtItem(new Item("Item 3", 150.00, SettingsConfig.getInstance().getBuyerPremium(), 7.50, new Date(System.currentTimeMillis() - 200000)));
-
+            reportArea.clear();
+            BuyersReport.getInstance().clearBoughtItems();
+            for (Auction auction : AuctionManager.getInstance().getEndedAuctions()) {
+                if (!auction.isOwnedByUser() && auction.getBidHistory().size() > 0) {
+                    report.addBoughtItem(new Item(auction.getItemName(), auction.getCurrentBid().getAmount(), SettingsConfig.getInstance().getBuyerPremium(), 5, auction.getEndDate()));
+                }
+            }
             String reportText = report.generateReport();
             reportArea.setText(reportText);
         });
 
         // Add event handler for the bid history report button
         generateBidHistoryReportButton.setOnAction(event -> {
-            // Generate the bid history report
-            EndedAuction endedAuction = new EndedAuction("Sample Item", "2023-10-01", 300.00);
+            // Get the selected auction from ComboBox
+            Auction selectedAuction = auctionComboBox.getValue();
 
-            // Add some sample bids
-            endedAuction.addBid(new Bid(300.00, new Date(), "User1"));
-            endedAuction.addBid(new Bid(150.00, new Date(System.currentTimeMillis() - 100000), "User2"));
-            endedAuction.addBid(new Bid(200.00, new Date(System.currentTimeMillis() - 200000), "User3"));
-
-            String reportText = endedAuction.generateBidHistoryReport();
-            reportArea.setText(reportText);
+            if (selectedAuction != null) {
+                // Generate the bid history report for the selected auction
+                String reportText = selectedAuction.generateBidHistoryReportFull();
+                reportArea.setText(reportText);
+            } else {
+                reportArea.setText("Please select an auction.");
+            }
         });
 
         // Add event handler for the save data button
